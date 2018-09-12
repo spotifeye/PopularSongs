@@ -11,12 +11,10 @@ app.use( bodyParser.json() );
 
 
 app.get('/artist/:id', function (req, res) {
-
   let artistID = parseInt(req.params.id, 10);
   Artist.findOne({id: artistID})
     .then(artist => res.json(artist))
     .catch(err => console.log(err));
-
 });
 
 
@@ -27,8 +25,9 @@ app.post('/artist/update', function (req, res) {
   update[objProp] = !!parseInt(req.body.added,10);
 
   Artists.findOneAndUpdate({id: req.body.artistID}, {$set:update})
+  // TO DO: get current boolean value from db and send back along with mssg
     .then(() => res.json({message: 'success', added: !!parseInt(req.body.added,10)}))
-    .catch(() => res.status(400).json({message: 'bad request'}));
+    .catch(() => res.status(400).json({message: 'bad request'}));   
 });
 
 

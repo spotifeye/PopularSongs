@@ -49,24 +49,3 @@ for (var i = 1; i <= 100; i++) {
   
 }
 
-/*
-
-  id: Number, 
-  name: String,
-  albums: [{
-    id: Number, 
-    name: String, 
-    img: Sring,
-    publish: Number, 
-    songs: [{
-      id: Number,
-      name: String,
-      streams: Number,
-      length: Number, 
-      popularity: Number, 
-      library: Boolean
-    }]
-  }]
-});
-
-*/

@@ -19,6 +19,7 @@
   margin-right: 10px;
   float: left;
   border: 0.5px solid #b3b3b3;
+  margin-top: 2rem;
 }
 
 .spfy-btn:hover {
@@ -28,14 +29,11 @@
   border: 1.4px solid white;
 }
 
-.row {
-  margin-bottom: 3rem;
-}
-
 .song {
   /*vertical-align: middle;*/
   display: flex;
   align-items: center;
+  margin-bottom: 0.4rem;
 }
 
 .plus {
@@ -64,7 +62,8 @@
 
 /* HOVER EFFECTS */
 .song:hover {
-  background-color:#535353;
+  /*background-color:#3a3a3a; this color when clicked*/
+  background-color:#323232;
 }
 
 .song:hover .plus{
@@ -80,5 +79,26 @@
   -webkit-transform:scale(1.1,1.1);
   -moz-transform:scale(1.1,1.1);
 }
+
+/* Popover Styling */
+.popover .arrow {
+  visibility:hidden;
+}
+
+.popover-body {
+ background-color: #323232;
+ border-radius:3px;
+}
+
+.popover-body td{
+  color: #b3b3b3;
+}
+
+.popover-body tr>td{
+  padding-bottom: 1em;
+}
+
+
+
 
 

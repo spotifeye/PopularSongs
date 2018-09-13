@@ -5,14 +5,17 @@ import App from '../../../react-client/src/app';
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
-test('render without crashing', () => {
+describe('App Tests ', () => {
 
-});
+    it('render without crashing', () => {
 
-const app = shallow(<App />);
+    });
 
-test('Component renders', () => {
-    expect(app.exists()).toBeTruthy();
+    it('renders correctly', () => {
+      const app = shallow(<App/ >);
+      expect(app.exists()).toBeTruthy();
+    });
+  
 });
 
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Artist = require('../database/index');
+const path = require('path');
 
 const app = express();
 
@@ -8,6 +9,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use( bodyParser.json() );
+app.use(express.static(path.join(__dirname, '../react-client/dist/')));
 
 
 app.get('/artist/:id', function (req, res) {

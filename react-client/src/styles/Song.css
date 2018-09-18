@@ -1,0 +1,80 @@
+  :local(.song) {
+    /*vertical-align: middle;*/
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.4rem;
+  }
+  
+  :local(.plus) {
+    font-size: 200%;
+    font-weight: 100;
+    color: #b3b3b3;
+  }
+  
+  :local(#play) {
+    font-size: 150%;
+    font-weight: 100;
+    color:white;
+  }
+  
+  :local(#number) {
+    vertical-align: middle;
+    color: #b3b3b3
+  }
+  
+  :local(.more) {
+    font-size: 150%;
+    font-weight: 100;
+    color:#b3b3b3;
+  }
+  
+  
+  /* HOVER EFFECTS */
+  :local(.song:hover) {
+    /*background-color:#3a3a3a; this color when clicked*/
+    background-color:#323232;
+  }
+  
+  :local(.song:hover .plus){
+    color:white;
+  }
+  
+  :local(.song:hover .more){
+    color:white;
+  }
+  
+  :local(#play:hover) {
+    transform:scale(1.1,1.1);
+    -webkit-transform:scale(1.1,1.1);
+    -moz-transform:scale(1.1,1.1);
+  }
+  
+  /* Popover Styling */
+  :local(.popover .arrow) {
+    visibility:hidden;
+  }
+  
+  :local(.popover-body) {
+   background-color: #323232;
+   border-radius:3px;
+  }
+  
+  :local(.popover-body td){
+    color: #b3b3b3;
+  }
+  
+  :local(.popover-body tr>td){
+    padding-bottom: 1em;
+  }
+
+  :local(.song-number-play) {
+
+  }
+
+  :local(.song-name) {
+
+  }
+
+  :local(.streams) {
+
+  }

@@ -63,8 +63,8 @@ class Song extends React.Component {
 
 
                 <div id={styles["more-options"]}>
-                    <Popover placement={"bottom"} isOpen={this.state.popoverOpen} target={"Popover1"} toggle={this.toggle}>
-                        <PopoverBody>
+                    <Popover placement={"bottom"} isOpen={this.state.popoverOpen} target={"Popover1"} toggle={this.toggle} styleName={"popover"}>
+                        <PopoverBody styleName={"popover-body"}>
                             <table>
                                 <tbody>
                                     <tr><td>Add to Queue</td></tr>

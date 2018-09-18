@@ -50,6 +50,7 @@
   }
   
   /* Popover Styling */
+  
   :local(.popover .arrow) {
     visibility:hidden;
   }
@@ -66,6 +67,8 @@
   :local(.popover-body tr>td){
     padding-bottom: 1em;
   }
+
+  
 
   :local(.song-number-play) {
 

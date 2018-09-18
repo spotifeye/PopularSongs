@@ -2,7 +2,7 @@ var path = require('path');
 //var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var webpack = require('webpack');
 var SRC_DIR = path.join(__dirname, '/react-client/src');
-var DIST_DIR = path.join(__dirname, '/react-client/dist');
+var DIST_DIR = path.join(__dirname, '/public/dist');
 
 module.exports = {
     devtool: 'inline-source-map',

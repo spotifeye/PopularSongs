@@ -13,8 +13,8 @@ app.use(express.static(path.join(__dirname, '../public/')));
 
 
 app.get('/artist/:id', function (req, res) {
-  //let artistID = parseInt(req.params.id, 10);
-  let artistID = parseInt(req.query.id, 10);
+  let artistID = parseInt(req.params.id, 10);
+  //let artistID = parseInt(req.query.id, 10);
   Artist.findOne({id: artistID})
     .then(artist => res.json(artist))
     .catch(err => console.log(err));

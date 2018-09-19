@@ -24,7 +24,8 @@ class App extends React.Component {
     var randNum = Math.floor(Math.random() * 100) + 1;
     this.setState({artistID: randNum});
    
-    axios.get(`http://localhost:3003/artist/id`,{params: {id: 1}})
+    //axios.get(`http://localhost:3003/artist/id`,{params: {id: randNum}})
+    axios.get(`http://localhost:3003/artist/` + randNum)
       .then(response => {
 
         let data = response.data;
@@ -71,17 +72,17 @@ class App extends React.Component {
       //<div className={"container-fluid popular-songs"}>
       <div className={"container-fluid"} styleName={"popular-songs"}>
         <div className={"row"}> 
-          <div className={"col"}> 
-              <h3 className={"text-center"}>Popular</h3>
+        <div className={"col col-lg-1"}>
+              <h3 styleName={"popular-title"}>Popular</h3>
           </div> 
         </div>
-
+      
         {this.state.showMore ? this.createListOfSongs() : this.fiveBestSongs()}
 
         <div className={"row"}>
             <div className={"col col-lg-1"}></div>
             <div className={"col"}>
-                <button styleName={"spfy-btn"} className={"mt-5"} type={"button"} onClick={() => {this.setState({showMore: !this.state.showMore})}}>SHOW 5 MORE</button>
+                <button styleName={"spfy-btn"} className={"mt-5"} type={"button"} onClick={() => {this.setState({showMore: !this.state.showMore})}}>{this.state.showMore ? 'SHOW ONLY 5 SONGS' : 'SHOW 5 MORE'}</button>
             </div>
             <div className={"col col-lg-1"}></div>
         </div>

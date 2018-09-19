@@ -1,7 +1,8 @@
 .popular-songs {
-  background-color: #212121;
+  /*background-color: #212121;*/
+  background: rgb(25, 25, 25);
   color: white;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .spfy-btn {

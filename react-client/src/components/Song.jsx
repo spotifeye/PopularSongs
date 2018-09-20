@@ -18,7 +18,6 @@ class Song extends React.Component {
             playing: false,
             moreOptions: false,
             hover: false,
-            popoverOpen: false,
             check: false
         };
     }   
@@ -42,6 +41,27 @@ class Song extends React.Component {
 
     toggle() {
         this.setState({popoverOpen: !this.state.popoverOpen});
+    }
+
+    more () {
+        return (
+            <div className={"dropdown"}>
+                <ion-icon styleName={"more"} name={"ios-more"} data-toggle={"dropdown"} ></ion-icon>
+                <div className={"dropdown-menu"} styleName={"more-options"} aria-labelledby={"dropdownMenuButton"}>
+                    <a className={"dropdown-item"} styleName={"more-op"} href="#">Add to Queue</a>
+                    <a className={"dropdown-item"} styleName={"more-op"} href="#">Go to Song Radio</a>
+                    <div className="dropdown-divider" styleName={"line"}></div>
+                    <a className={"dropdown-item"} styleName={"more-op"} href="#">Go to Artist</a>
+                    <a className={"dropdown-item"} styleName={"more-op"} href="#">Go to Album</a>
+                    <a className={"dropdown-item"} styleName={"more-op"} href="#">Show Credits</a>
+                    <div className="dropdown-divider" styleName={"line"}></div>
+                    <a className={"dropdown-item"} styleName={"more-op"} href="#">Save to Your Library</a>
+                    <a className={"dropdown-item"} styleName={"more-op"} href="#">Add to Playlist</a>
+                    <div className="dropdown-divider" styleName={"line"}></div>
+                    <a className={"dropdown-item"} styleName={"more-op"} href="#">Share</a>
+                </div>
+            </div>
+        );
     }
         
     render () {
@@ -67,30 +87,12 @@ class Song extends React.Component {
                 <div className={"col col-lg-6"} styleName={"song-name"}>{this.props.songName}</div>
 
                 <div className={"col col-lg-1"}>
-                    <ion-icon id={"Popover1"} styleName={"more"} name={"ios-more"} onClick={this.toggle}></ion-icon>
+                    {this.more()}
+                    {/* <ion-icon id={"Popover1"} styleName={"more"} name={"ios-more"} onClick={this.toggle}></ion-icon> */}
                 </div>
 
                 <div className={"col col-lg-2"}styleName={"streams"}>{this.props.streams.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
 
-
-                <div id={styles["more-options"]}>
-                    <Popover placement={"bottom"} isOpen={this.state.popoverOpen} target={"Popover1"} toggle={this.toggle} styleName={"popover"}>
-                        <PopoverBody styleName={"popover-body"}>
-                            <table>
-                                <tbody>
-                                    <tr><td>Add to Queue</td></tr>
-                                    <tr><td>Go to Song Radio</td></tr>
-                                    <tr><td>Go to Artist</td></tr>
-                                    <tr><td>Go to Album</td></tr>
-                                    <tr><td>Show Credits</td></tr>
-                                    <tr><td>Save to Your Library</td></tr>
-                                    <tr><td>Add to Playlist</td></tr>
-                                    <tr><td>Share</td></tr>
-                                </tbody>
-                            </table>
-                        </PopoverBody>
-                    </Popover>
-                </div>
             </div>
             
         );

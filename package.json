@@ -8,7 +8,10 @@
   },
   "scripts": {
     "test": "jest",
-    "clear": "jest --clearCache"
+    "clear": "jest --clearCache",
+    "start": "nodemon server/index.js",
+    "react-dev": "webpack -d --watch",
+    "seed": "node database/seeding_script.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.4",

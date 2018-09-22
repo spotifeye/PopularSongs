@@ -25,15 +25,14 @@ class App extends React.Component {
     this.setState({artistID: randNum});
    
     //axios.get(`http://localhost:3003/artist/id`,{params: {id: randNum}})
-    axios.get(`http://localhost:3003/artist/` + randNum)
+    axios.get(`/artist/` + randNum)
       .then(response => {
 
         let data = response.data;
+
         this.setState({artistObj: data});
 
-        let arrImg = [data.albums[0].img, data.albums[1].img, data.albums[2].img];
-
-        this.setState({albumCovers: arrImg});
+        this.setState({albumCovers: data.albums[0].img});
 
         let albumOne = data.albums[0].songs.map(e => [0,e]);
         let albumTwo = data.albums[1].songs.map(e => [1,e]);
@@ -59,7 +58,8 @@ class App extends React.Component {
   }
 
   createListOfSongs () {
-    return this.state.popularSongs.map((e,i) => <Song key={e[1]._id} counter={i+1} albumURL={this.state.albumCovers[e[0]]} library={e[1].library} songName={e[1].name} streams={e[1].streams}/>);
+    let albumArr = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10];
+    return this.state.popularSongs.map((e,i) => <Song key={e[1]._id} counter={i+1} albumURL={this.state.albumCovers + albumArr[i] + '.jpg'} library={e[1].library} songName={e[1].name} streams={e[1].streams}/>);
   }
 
   fiveBestSongs () {

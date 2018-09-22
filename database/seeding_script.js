@@ -16,7 +16,7 @@ for (var i = 1; i <= 100; i++) {
     let objB = {
       id: j,
       name: faker.lorem.words(),
-      img: `https://loremflickr.com/320/240/music,album,cover/all?random=${j + 1}`, 
+      img: `https://s3-us-west-1.amazonaws.com/dotthen/`, 
       publish: Math.floor(Math.random() * (2018 - 1920 + 1)) + 1920,   // published between 2018 and 1920
       songs: []
     }

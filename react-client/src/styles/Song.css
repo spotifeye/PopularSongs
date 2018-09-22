@@ -21,18 +21,23 @@
     font-size: 150%;
     font-weight: 100;
     color:white;
+    margin-left: 15px;
   }
   
   :local(#number) {
     vertical-align: middle;
     color: #b3b3b3;
-    /*margin-left: 25px;*/
+    margin-left: 20px;
   }
   
   :local(.more) {
     font-size: 150%;
     font-weight: 100;
     color:#b3b3b3;
+  }
+
+  :local(.test) {
+    display: none;
   }
   
   
@@ -49,6 +54,10 @@
   :local(.song:hover .more){
     color:white;
   }
+
+  :local(.song:hover .test){
+    display: inline;
+  }
   
   :local(#play:hover) {
     transform:scale(1.1,1.1);
@@ -58,7 +67,7 @@
   
   /* Popover Styling */
   
-  :local(.popover .arrow) {
+  /* :local(.popover .arrow) {
     visibility:hidden;
   }
   
@@ -73,7 +82,7 @@
   
   :local(.popover-body tr>td){
     padding-bottom: 1em;
-  }
+  } */
 
   
 
@@ -93,7 +102,7 @@
   }
 
   :local(.more-options) {
-    background-color: #323232;
+    background-color: #282828 !important;
     color: #b3b3b3;
     font-family: 'Open Sans', sans-serif !important;
   }
@@ -112,6 +121,7 @@
 
   :local(.line) {
     border-top: 1px solid #b3b3b3;
+    margin:0 !important;
   }
 
   

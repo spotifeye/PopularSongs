@@ -1,5 +1,6 @@
 import React from 'react';
-import { Popover, PopoverBody } from 'reactstrap';
+import Dropdown from 'rc-dropdown';
+import Menu, { Item as MenuItem, Divider } from 'rc-menu';
 import styles from '../styles/Song.css';
 import CSSModules from 'react-css-modules';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -45,7 +46,7 @@ class Song extends React.Component {
 
     more () {
         return (
-            <div className={"dropdown"}>
+            <div className={"dropdown"} styleName={"test"}>
                 <ion-icon styleName={"more"} name={"ios-more"} data-toggle={"dropdown"} ></ion-icon>
                 <div className={"dropdown-menu"} styleName={"more-options"} aria-labelledby={"dropdownMenuButton"}>
                     <a className={"dropdown-item"} styleName={"more-op"} href="#">Add to Queue</a>
@@ -88,6 +89,7 @@ class Song extends React.Component {
 
                 <div className={"col col-lg-1"}>
                     {this.more()}
+                    {/* {this.moreTwo()} */}
                     {/* <ion-icon id={"Popover1"} styleName={"more"} name={"ios-more"} onClick={this.toggle}></ion-icon> */}
                 </div>
 

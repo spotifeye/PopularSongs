@@ -11,7 +11,8 @@
     "clear": "jest --clearCache",
     "start": "node server/index.js",
     "react-dev": "webpack -d --watch",
-    "seed": "node database/seeding_script.js"
+    "seed": "node database/seeding_script.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
@@ -33,15 +34,22 @@
     "react-css-modules": "^4.7.7",
     "react-dom": "^15.4.2",
     "reactstrap": "^6.4.0",
-    "style-loader": "^0.23.0"
+    "style-loader": "^0.23.0",
+    "webpack-merge": "^4.1.4"
   },
   "devDependencies": {
-    "babel-core": "^6.23.1",
-    "babel-loader": "^6.3.2",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.23.0",
-    "babel-jest": "^23.6.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/core": "^7.0.1",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.0-beta.6",
+    "compression-webpack-plugin": "^2.0.0",
+    "css-loader": "^1.0.0",
+    "postcss-loader": "^3.0.0",
+    "precss": "^3.1.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.0",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-15": "^1.1.0",
     "enzyme-adapter-react-16": "^1.5.0",
@@ -50,9 +58,7 @@
     "faker": "^4.1.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
-    "jest-enzyme": "^6.0.4",
-    "webpack": "^2.2.1",
-    "webpack-cli": "^3.1.0"
+    "jest-enzyme": "^6.0.4"
   },
   "version": "1.0.0",
   "main": "index.js",

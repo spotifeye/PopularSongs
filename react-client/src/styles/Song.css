@@ -97,6 +97,10 @@
 
   }
 
+  :local(.song-is-playing) {
+    color: rgb(29, 185, 84);
+  }
+
   :local(.streams) {
     
   }

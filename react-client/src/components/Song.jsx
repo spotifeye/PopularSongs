@@ -19,7 +19,9 @@ class Song extends React.Component {
             playing: false,
             moreOptions: false,
             hover: false,
-            check: false
+            check: false,
+            playPause: false,
+            fixedPlay: true
         };
     }   
       
@@ -29,7 +31,12 @@ class Song extends React.Component {
 
     displayPlay () {
         //return (<ion-icon id={styles.play} name={"ios-play"}></ion-icon>);
-        return(<FontAwesomeIcon id={styles.play} icon={faPlayCircle} size="lg"/>);
+        return(<FontAwesomeIcon id={styles.play} icon={faPlayCircle} size="lg" onClick={() => {this.setState({playPause: !this.state.playPause, fixedPlay: false})}}/>);
+    }
+
+    displayPause () {
+        //return (<ion-icon id={styles.play} name={"ios-play"}></ion-icon>);
+        return(<FontAwesomeIcon id={styles.play} icon={faPauseCircle} size="lg" onClick={() => {this.setState({playPause: !this.state.playPause, fixedPlay: true})}}/>);
     }
 
     displayCheck () {
@@ -42,6 +49,14 @@ class Song extends React.Component {
 
     toggle() {
         this.setState({popoverOpen: !this.state.popoverOpen});
+    }
+
+    songNameStyle() {
+        return this.state.fixedPlay ? "song-name" : "song-is-playing";
+    }
+
+    streamsStyle() {
+        return this.state.fixedPlay ? "streams" : "song-is-playing";
     }
 
     more () {
@@ -76,24 +91,21 @@ class Song extends React.Component {
 
                 <div className={"col col-lg-1"} styleName={"song-number-play"}>
                 
-                {this.state.hover ? this.displayPlay() : this.displayNumber()}
+                {!this.state.hover && this.state.fixedPlay ? this.displayNumber() : this.state.playPause ? this.displayPause() : this.displayPlay()}
                     
                 </div>
 
                 <div className={"col col-lg-1"} onClick={() => {this.setState({check: !this.state.check})}}>
                     {this.state.check ? this.displayCheck() : this.displayPlus()}
-                    {/* <FontAwesomeIcon styleName={"plus"} icon={faPlus} size="lg"/> */}
                 </div>
 
-                <div className={"col col-lg-6"} styleName={"song-name"}>{this.props.songName}</div>
+                <div className={"col col-lg-6"} styleName={this.songNameStyle()}>{this.props.songName}</div>
 
                 <div className={"col col-lg-1"}>
                     {this.more()}
-                    {/* {this.moreTwo()} */}
-                    {/* <ion-icon id={"Popover1"} styleName={"more"} name={"ios-more"} onClick={this.toggle}></ion-icon> */}
                 </div>
 
-                <div className={"col col-lg-2"}styleName={"streams"}>{this.props.streams.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                <div className={"col col-lg-2"}styleName={this.streamsStyle()}>{this.props.streams.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
 
             </div>
             

@@ -13,68 +13,36 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../public/")));
 
+// WORKING w/ Postman
 app.get("/artist/:id", function(req, res) {
   let artistID = parseInt(req.params.id, 10);
-  // console.log("artistID", artistID); --> output: correct number
   Artist.findOne({ id: artistID })
-    .then(artist => res.json(artist))
+    .then(artist => res.status(200).json(artist))
     .catch(err => console.log(err));
 });
 
-// app.get("/artist/:id", (req, res) => {
-//   let artistID = parseInt(req.params.id, 10);
-//   Artist.findOne({ artistID }, (error, results) => {
-//     if (error) {
-//       res.sendStatus(500);
-//       console.log("Error in server products request", error);
-//     } else {
-//       console.log("successful product return from controllers");
-//       console.log(results);
-//       res.status(200).send(results);
-//     }
-//   });
-// });
-
+// WORKING w/ Postman
 app.delete("/artist/:id", function(req, res) {
   let artistID = parseInt(req.params.id, 10);
-  // don't think we need to parseInt this...
-  Artist.deleteOne({ id: artistID }, function(err) {
-    if (err) {
-      res.sendStatus(500);
-      console.log("error in server req to delete artist", error);
-    } else {
-      res.sendStatus(202);
-      console.log("successful deletion of artist");
-    }
-  });
+  Artist.deleteOne({ id: artistID })
+    .then(() => res.status(202).send(String("artist successfully deleted")))
+    .catch(err => console.log(err));
 });
 
+// WORKING w/ Postman
+app.post("/artist/:id", function(req, res) {
+  // this is assuming that the req.body is an object with all of the artist information
+  Artist.create(req.body)
+    .then(() => res.status(201).send(String("artist successfully added")))
+    .catch(err => console.log(err));
+});
+
+// WORKING w/ Postman
 app.put("/artist/:id", function(req, res) {
   let artistID = parseInt(req.params.id, 10);
-  // don't think we need to parseInt this...
-  Artist.updateOne({ id: artistID }, function(err) {
-    if (err) {
-      res.sendStatus(500);
-      console.log("error in server req to update artist", error);
-    } else {
-      res.sendStatus(204);
-      console.log("successful update of artist");
-    }
-  });
-});
-
-// expect to receive {artistID, albumID, songID, added -> bool either 1 or 0}
-app.post("/artist/update", function(req, res) {
-  let update = {};
-  var objProp = `albums.${req.body.albumID}.songs.${req.body.songID}.library`;
-  update[objProp] = !!parseInt(req.body.added, 10);
-
-  Artists.findOneAndUpdate({ id: req.body.artistID }, { $set: update })
-    // TO DO: get current boolean value from db and send back along with mssg
-    .then(() =>
-      res.json({ message: "success", added: !!parseInt(req.body.added, 10) })
-    )
-    .catch(() => res.status(400).json({ message: "bad request" }));
+  Artist.findOneAndUpdate({ id: artistID }, req.body)
+    .then(() => res.status(200).send(String("artist successfully updated")))
+    .catch(err => console.log(err));
 });
 
 const PORT = 3003;

@@ -1,8 +1,8 @@
-import React from "react";
-import axios from "axios";
-import Song from "./Song.jsx";
-import styles from "../styles/App.css";
-import CSSModules from "react-css-modules";
+import React from 'react';
+import axios from 'axios';
+import Song from './Song.jsx';
+import styles from '../styles/App.css';
+import CSSModules from 'react-css-modules';
 
 class App extends React.Component {
   constructor(props) {
@@ -91,7 +91,7 @@ class App extends React.Component {
       <Song
         key={e[1]._id}
         counter={i + 1}
-        albumURL={this.state.albumCovers + albumArr[i] + ".jpg"}
+        albumURL={this.state.albumCovers + albumArr[i] + '.jpg'}
         library={e[1].library}
         songName={e[1].name}
         streams={e[1].streams}
@@ -106,30 +106,30 @@ class App extends React.Component {
   render() {
     return (
       //<div className={"container-fluid popular-songs"}>
-      <div className={"container-fluid"} styleName={"popular-songs"}>
-        <div className={"row"}>
-          <div className={"col col-lg-1"}>
-            <h3 styleName={"popular-title"}>Popular</h3>
+      <div className={'container-fluid'} styleName={'popular-songs'}>
+        <div className={'row'}>
+          <div className={'col col-lg-1'}>
+            <h3 styleName={'popular-title'}>Popular</h3>
           </div>
         </div>
 
         {this.state.showMore ? this.createListOfSongs() : this.fiveBestSongs()}
 
-        <div className={"row"}>
-          <div className={"col col-lg-1"} />
-          <div className={"col"}>
+        <div className={'row'}>
+          <div className={'col col-lg-1'} />
+          <div className={'col'}>
             <button
-              styleName={"spfy-btn"}
-              className={"mt-5"}
-              type={"button"}
+              styleName={'spfy-btn'}
+              className={'mt-5'}
+              type={'button'}
               onClick={() => {
                 this.setState({ showMore: !this.state.showMore });
               }}
             >
-              {this.state.showMore ? "SHOW ONLY 5 SONGS" : "SHOW 5 MORE"}
+              {this.state.showMore ? 'SHOW ONLY 5 SONGS' : 'SHOW 5 MORE'}
             </button>
           </div>
-          <div className={"col col-lg-1"} />
+          <div className={'col col-lg-1'} />
         </div>
       </div>
     );

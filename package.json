@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "clear": "jest --clearCache",
-    "start": "node server/index.js",
+    "start": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "seed": "node database/seeding_script.js"
   },
@@ -26,6 +26,7 @@
     "express": "^4.16.3",
     "jquery": "^3.3.1",
     "mongoose": "^5.2.13",
+    "nodemon": "^1.18.4",
     "popper.js": "^1.14.4",
     "rc-dropdown": "^2.2.0",
     "rc-menu": "^7.4.8",

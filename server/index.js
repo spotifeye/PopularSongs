@@ -14,23 +14,26 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, '../public/')));
 
 // WORKING w/ Postman
-app.get('/artist/:id', function(req, res) {
+app.get('/api/v1/artists/:id/popular-songs', function(req, res) {
   let artistID = parseInt(req.params.id, 10);
+  console.log(artistID);
   Artist.findOne({ id: artistID })
     .then(artist => res.status(200).json(artist))
     .catch(err => console.log(err));
 });
 
 // WORKING w/ Postman
-app.delete('/artist/:id', function(req, res) {
+app.delete('/api/v1/artists/:id/popular-songs/:id', function(req, res) {
   let artistID = parseInt(req.params.id, 10);
+  // console.log(artistID) --> returns the first number in the endpoint (artist Id)
   Artist.deleteOne({ id: artistID })
     .then(() => res.status(202).send(String('artist successfully deleted')))
     .catch(err => console.log(err));
 });
 
 // WORKING w/ Postman
-app.post('/artist/:id', function(req, res) {
+// includes a request body
+app.post('/api/v1/artists/:id/popular-songs', function(req, res) {
   // this is assuming that the req.body is an object with all of the artist information
   Artist.create(req.body)
     .then(() => res.status(201).send(String('artist successfully added')))
@@ -38,7 +41,9 @@ app.post('/artist/:id', function(req, res) {
 });
 
 // WORKING w/ Postman
-app.put('/artist/:id', function(req, res) {
+// put is a complete replacement, patch is a partial replacement
+// includes a request body
+app.put('/api/v1/artists/:id/popular-songs', function(req, res) {
   let artistID = parseInt(req.params.id, 10);
   Artist.findOneAndUpdate({ id: artistID }, req.body)
     .then(() => res.status(200).send(String('artist successfully updated')))

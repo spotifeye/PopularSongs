@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 // const db = require('../config/keys').mongoURI;
 // const db = require('../config/keys').mongoMlab;
 
 mongoose
   // .connect(db, { useNewUrlParser: true })
-  .connect("mongodb://localhost/artist")
-  .then(() => console.log("MongoDB connected"))
+  .connect('mongodb://localhost/artists')
+  .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
 const Schema = mongoose.Schema;
@@ -33,4 +33,4 @@ const ArtistSchema = new Schema({
   ]
 });
 
-module.exports = Artists = mongoose.model("Artists", ArtistSchema);
+module.exports = Artists = mongoose.model('Artists', ArtistSchema);

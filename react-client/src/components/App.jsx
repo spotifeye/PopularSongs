@@ -39,8 +39,12 @@ class App extends React.Component {
         let allSongs = albumOne.concat(albumTwo, albumThree);
 
         allSongs.sort((a, b) => {
-          if (a[1].popularity > b[1].popularity) return -1;
-          if (a[1].popularity < b[1].popularity) return 1;
+          if (a[1].popularity > b[1].popularity) {
+            return -1;
+          }
+          if (a[1].popularity < b[1].popularity) {
+            return 1;
+          }
           return 0;
         });
 

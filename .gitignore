@@ -25,7 +25,10 @@ build/
 dist/
 
 # CSV files 
-database/seed-artists.csv
-database/seed-albums.csv
-database/seed-songs.csv
+database/cassandra
+database/mongo
+database/postgres
+
+# Keys
+config/keys.js
 

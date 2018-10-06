@@ -25,7 +25,7 @@ class App extends React.Component {
 
     //axios.get(`http://localhost:3003/artist/id`,{params: {id: randNum}})
     axios
-      .get(`/artist/` + randNum)
+      .get('/api/v1/artists/:id/popular-songs')
       .then(response => {
         let data = response.data;
 

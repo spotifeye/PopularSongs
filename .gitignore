@@ -24,3 +24,12 @@ coverage
 build/
 dist/
 
+# CSV files 
+database/cassandra
+database/mongo
+database/postgres
+
+# Keys
+config/
+newrelic.js
+

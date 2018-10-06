@@ -31,5 +31,5 @@ database/postgres
 
 # Keys
 config/
-newrelic.js
+newrelic.js/
 

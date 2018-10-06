@@ -30,5 +30,6 @@ database/mongo
 database/postgres
 
 # Keys
-config/keys.js
+config/
+newrelic.js
 

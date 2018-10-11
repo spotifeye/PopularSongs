@@ -1,80 +1,166 @@
 require('newrelic');
 const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const cors = require('cors');
-const db = require('../config/keys');
-const app = express();
-const { Pool } = require('pg');
+const cluster = require('cluster');
+const os = require('os');
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(cors());
-app.use(express.static(path.join(__dirname, '../public/')));
+if (cluster.isMaster) {
+  const cpuCount = os.cpus().length;
+  for (i = 0; i < cpuCount; i++) {
+    cluster.fork();
+  }
+} else {
+  const bodyParser = require('body-parser');
+  const path = require('path');
+  const cors = require('cors');
+  const db = require('../config/keys');
+  const app = express();
+  const { Pool } = require('pg');
+  // const morgan = require('morgan');
+  // const logger = require('./logger');
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  app.use(cors());
+  app.use(express.static(path.join(__dirname, '../public/')));
 
-let pool = new Pool({
-  user: 'tecostello',
-  host: 'localhost',
-  database: 'spotify',
-  password: db.pgPass,
-  port: 5432,
-  max: 10
-  // this is a max of 10 connections
-});
+  // app.use(
+  //   morgan('dev', {
+  //     skip: function(req, res) {
+  //       return res.statusCode < 400;
+  //     },
+  //     stream: process.stderr
+  //   })
+  // );
 
-// WORKING WITH POSTMAN
-app.get('/api/v1/artists/:id/popular-songs', function(req, res) {
-  let artistID = parseInt(req.params.id, 10);
-  let schema = `SELECT * FROM artists 
-  INNER JOIN albums ON artists.id = albums.artist_id 
-  INNER JOIN songs ON albums.id = songs.albums_id
-  WHERE artists.id=${artistID};`;
-  // ORDER BY songs.popularity DESC
-  // LIMIT 10;
-  pool
-    .query(schema)
-    .then(artist => res.status(200).json(artist.rows))
-    .catch(err => console.log(err));
-});
+  // app.use(
+  //   morgan('dev', {
+  //     skip: function(req, res) {
+  //       return res.statusCode >= 400;
+  //     },
+  //     stream: process.stdout
+  //   })
+  // );
 
-// WORKING WITH POSTMAN
-app.post('/api/v1/artists/:id/popular-songs', function(req, res) {
-  console.log(req.body);
-  let schema = `INSERT INTO songs(id,name,streams,length,popularity,library,albums_id) VALUES (
+  let pool = new Pool({
+    user: 'tecostello',
+    host: 'localhost',
+    database: 'spotify',
+    password: db.pgPass,
+    port: 5432,
+    max: 10
+    // this is a max of 10 connections
+  });
+
+  pool.on('error', (err, client) => {
+    console.error('Unexpected error on idle client', err);
+    process.exit(-1);
+  });
+
+  app.get('');
+
+  // WORKING WITH POSTMAN
+  app.get('/api/v1/artists/:id/popular-songs', function(req, res) {
+    //   let artistID = parseInt(req.params.id, 10);
+    //   let schema = `SELECT * FROM artists
+    // INNER JOIN albums ON artists.id = albums.artist_id
+    // INNER JOIN songs ON albums.id = songs.albums_id
+    // WHERE artists.id=${artistID};`;
+    // ORDER BY songs.popularity DESC
+    // LIMIT 10;
+    let artistID = parseInt(req.params.id, 10);
+
+    pool.connect((err, client, done) => {
+      if (err) {
+        throw err;
+      }
+      client.query(
+        `SELECT * FROM artists INNER JOIN albums ON artists.id = albums.artist_id INNER JOIN songs ON albums.id = songs.albums_id WHERE artists.id = ${artistID};`,
+        (err, result) => {
+          done();
+
+          if (err) {
+            console.log(err.stack);
+          } else {
+            // logger.debug('Debug statement');
+            // logger.info('Info statement');
+            res.status(200).json(result.rows);
+            // console.log(result.rows[0]);
+          }
+        }
+      );
+    });
+
+    // USING PROMISES
+    // pool.connect().then(client => {
+    //   let artistID = parseInt(req.params.id, 10);
+    //   return client
+    //     .query(
+    //       `SELECT * FROM artists
+    //     INNER JOIN albums ON artists.id = albums.artist_id
+    //     INNER JOIN songs ON albums.id = songs.albums_id
+    //     WHERE artists.id=${artistID};`
+    //     )
+    //     .then(res => {
+    //       client.release();
+    //       res.status(200).json(artist.rows);
+    //     })
+    //     .catch(err => {
+    //       client.release();
+    //       err.status(500);
+    //       console.log(err.stack);
+    //     });
+    // });
+
+    // ORIGINAL IMPLEMENTATION
+    // pool
+    //   .query(schema)
+    //   .then(artist => res.status(200).json(artist.rows))
+    //   .catch(err => console.log(err));
+  });
+
+  // WORKING WITH POSTMAN
+  app.post('/api/v1/artists/:id/popular-songs', function(req, res) {
+    console.log(req.body);
+    let schema = `INSERT INTO songs(id,name,streams,length,popularity,library,albums_id) VALUES (
     ${req.body.id},'${req.body.name}',${req.body.streams},${req.body.length},${
-    req.body.popularity
-  },${req.body.library},${req.body.albums_id});`;
+  req.body.popularity
+},${req.body.library},${req.body.albums_id});`;
 
-  pool
-    .query(schema)
-    .then(() => res.status(201).send(String('artist successfully added')))
-    .catch(err => console.log(err));
-});
+    pool
+      .query(schema)
+      .then(() => res.status(201).send(String('artist successfully added')))
+      .catch(err => console.log(err));
+  });
 
-//WORKING WITH POSTMAN
-app.delete('/api/v1/artists/:id/popular-songs', function(req, res) {
-  console.log(req.body);
-  let schema = `DELETE FROM songs WHERE id=${req.body.song_id};`;
-  pool
-    .query(schema)
-    .then(() => res.status(202).send(String('artist successfully deleted')))
-    .catch(err => console.log(err));
-});
+  //WORKING WITH POSTMAN
+  app.delete('/api/v1/artists/:id/popular-songs', function(req, res) {
+    console.log(req.body);
+    let schema = `DELETE FROM songs WHERE id=${req.body.song_id};`;
+    pool
+      .query(schema)
+      .then(() => res.status(202).send(String('artist successfully deleted')))
+      .catch(err => console.log(err));
+  });
 
-//WORKING WITH POSTMAN
-app.put('/api/v1/artists/:id/popular-songs', function(req, res) {
-  console.log(req.body);
-  let schema = `UPDATE songs SET name = '${req.body.name}' WHERE id=${req.body.id};`;
-  pool
-    .query(schema)
-    .then(() => res.status(200).send(String('artist successfully updated')))
-    .catch(err => console.log(err));
-});
+  //WORKING WITH POSTMAN
+  app.put('/api/v1/artists/:id/popular-songs', function(req, res) {
+    console.log(req.body);
+    let schema = `UPDATE songs SET name = '${req.body.name}' WHERE id=${req.body.id};`;
+    pool
+      .query(schema)
+      .then(() => res.status(200).send(String('artist successfully updated')))
+      .catch(err => console.log(err));
+  });
 
-const PORT = 3003;
+  const PORT = 3003;
 
-app.listen(PORT, function() {
-  console.log(`listening on port ${PORT}!`);
+  app.listen(PORT, function() {
+    console.log(`listening on port ${PORT}!`);
+  });
+}
+
+cluster.on('exit', worker => {
+  console.log(`${worker.id} is no more`);
+  cluster.fork();
 });
 
 // ------------------- PREVIOUS (MONGO) ---------------------------

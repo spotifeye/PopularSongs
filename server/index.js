@@ -41,21 +41,31 @@ if (cluster.isMaster) {
   // );
 
   let pool = new Pool({
-    user: 'tecostello',
-    host: 'localhost',
-    database: 'spotify',
-    password: db.pgPass,
-    port: 5432,
-    max: 10
-    // this is a max of 10 connections
+    host: '13.56.188.4',
+    database: 'spotifeye',
+    port: '5432',
+    user: 'power_user',
+    password: '$poweruserpassword'
   });
+
+  // let pool = new Pool({
+  //   user: 'tecostello',
+  //   host: 'localhost',
+  //   database: 'spotify',
+  //   password: db.pgPass,
+  //   port: 5432,
+  //   max: 10
+  //   // this is a max of 10 connections
+  // });
 
   pool.on('error', (err, client) => {
     console.error('Unexpected error on idle client', err);
     process.exit(-1);
   });
 
-  app.get('');
+  app.get('/loaderio-9f6b3e42e3fa57d62e93f163cdf2832c', function(req, res) {
+    res.status(200).send('loaderio-9f6b3e42e3fa57d62e93f163cdf2832c');
+  });
 
   // WORKING WITH POSTMAN
   app.get('/api/v1/artists/:id/popular-songs', function(req, res) {

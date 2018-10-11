@@ -1,7 +1,22 @@
 import http from 'k6/http';
-import { sleep } from 'k6';
+import { check } from 'k6';
+
+const randomId = Math.floor(Math.random() * 300000) + 10000000;
+
+export let options = {
+  vus: 200,
+  duration: '30s'
+  // rps: 1000
+  // thresholds: {
+  //   errors: ['rate<0.01']
+  // }
+};
 
 export default function() {
-  http.get('http://test.loadimpact.com');
-  sleep(1);
+  let res = http.get(`http://localhost:3003/api/v1/artists/${randomId}/popular-songs`);
+  // console.log('Response time was ' + String(res.timings.duration) + ' ms');
+  check(res, {
+    'status was 200': r => r.status == 200,
+    'transaction time was ok': r => r.timings.duration < 600
+  });
 }

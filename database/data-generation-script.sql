@@ -23,10 +23,10 @@ CREATE TABLE IF NOT EXISTS songs (
 );
 
 COPY artists
-FROM '/Users/tomcostello/Immersive/01.SDC/PopularSongs/database/seed-artists.csv' DELIMITER ',' CSV HEADER;
+FROM '/Users/tomcostello/Immersive/01.SDC/PopularSongs/database/postgres/seed-artists.csv' DELIMITER ',' CSV HEADER;
 
 COPY albums
-FROM '/Users/tomcostello/Immersive/01.SDC/PopularSongs/database/seed-albums.csv' DELIMITER ',' CSV HEADER;
+FROM '/Users/tomcostello/Immersive/01.SDC/PopularSongs/database/postgres/seed-albums.csv' DELIMITER ',' CSV HEADER;
 
 COPY songs
-FROM '/Users/tomcostello/Immersive/01.SDC/PopularSongs/database/seed-songs.csv' DELIMITER ',' CSV HEADER;
+FROM '/Users/tomcostello/Immersive/01.SDC/PopularSongs/database/postgres/seed-songs.csv' DELIMITER ',' CSV HEADER;

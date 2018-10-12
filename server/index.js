@@ -75,22 +75,28 @@ app.get('/api/v1/artists/:id/popular-songs', function(req, res) {
   // WHERE artists.id=${artistID};`;
   // ORDER BY songs.popularity DESC
   // LIMIT 10;
-  let artistID = parseInt(req.params.id, 10);
+  let artistID = req.params.id;
+  console.log(req.params);
+  console.log(artistID);
 
   pool.connect((err, client, done) => {
     if (err) {
       throw err;
     }
+
     client.query(
-      `SELECT * FROM artists INNER JOIN albums ON artists.id = albums.artist_id INNER JOIN songs ON albums.id = songs.albums_id WHERE artists.id = ${artistID};`,
+      `SELECT * FROM artists INNER JOIN albums ON artists.art_id = albums.artist_id INNER JOIN songs ON albums.alb_id = songs.albums_id WHERE artists.art_id = ${artistID} ORDER BY songs.popularity DESC LIMIT 10;`,
       (err, result) => {
+        console.log('result:', result);
         done();
 
         if (err) {
-          console.log(err.stack);
+          console.log('error is here', err.stack);
         } else {
           // logger.debug('Debug statement');
           // logger.info('Info statement');
+          console.log('successful');
+          // console.log(result);
           res.status(200).json(result.rows);
           // console.log(result.rows[0]);
         }

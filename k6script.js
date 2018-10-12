@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { check } from 'k6';
 
-const randomId = Math.floor(Math.random() * 300000) + 10000000;
+const randomId = Math.floor(Math.random() * 100) + 10000000;
 
 export let options = {
   vus: 200,

@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../public/')));
 
+// POSSIBLE LOGGING
 // app.use(
 //   morgan('dev', {
 //     skip: function(req, res) {
@@ -29,7 +30,6 @@ app.use(express.static(path.join(__dirname, '../public/')));
 //     stream: process.stderr
 //   })
 // );
-
 // app.use(
 //   morgan('dev', {
 //     skip: function(req, res) {
@@ -39,6 +39,7 @@ app.use(express.static(path.join(__dirname, '../public/')));
 //   })
 // );
 
+// POINTS TO LOCAL VERSION OF POSTGRES
 // let pool = new Pool({
 //   user: 'tecostello',
 //   host: 'localhost',
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, '../public/')));
 //   // this is a max of 10 connections
 // });
 
+// POINTS TO EC2 INSTANCE OF POSTGRES
 let pool = new Pool({
   host: '13.56.188.4',
   database: 'spotifeye',
@@ -62,19 +64,8 @@ pool.on('error', (err, client) => {
   process.exit(-1);
 });
 
-// app.get('/loaderio-9f6b3e42e3fa57d62e93f163cdf2832c', function(req, res) {
-//   res.status(200).send('loaderio-9f6b3e42e3fa57d62e93f163cdf2832c');
-// });
-
 // WORKING WITH POSTMAN
 app.get('/api/v1/artists/:id/popular-songs', function(req, res) {
-  //   let artistID = parseInt(req.params.id, 10);
-  //   let schema = `SELECT * FROM artists
-  // INNER JOIN albums ON artists.id = albums.artist_id
-  // INNER JOIN songs ON albums.id = songs.albums_id
-  // WHERE artists.id=${artistID};`;
-  // ORDER BY songs.popularity DESC
-  // LIMIT 10;
   let artistID = req.params.id;
   console.log(req.params);
   console.log(artistID);
@@ -96,40 +87,11 @@ app.get('/api/v1/artists/:id/popular-songs', function(req, res) {
           // logger.debug('Debug statement');
           // logger.info('Info statement');
           console.log('successful');
-          // console.log(result);
           res.status(200).json(result.rows);
-          // console.log(result.rows[0]);
         }
       }
     );
   });
-
-  // USING PROMISES
-  // pool.connect().then(client => {
-  //   let artistID = parseInt(req.params.id, 10);
-  //   return client
-  //     .query(
-  //       `SELECT * FROM artists
-  //     INNER JOIN albums ON artists.id = albums.artist_id
-  //     INNER JOIN songs ON albums.id = songs.albums_id
-  //     WHERE artists.id=${artistID};`
-  //     )
-  //     .then(res => {
-  //       client.release();
-  //       res.status(200).json(artist.rows);
-  //     })
-  //     .catch(err => {
-  //       client.release();
-  //       err.status(500);
-  //       console.log(err.stack);
-  //     });
-  // });
-
-  // ORIGINAL IMPLEMENTATION
-  // pool
-  //   .query(schema)
-  //   .then(artist => res.status(200).json(artist.rows))
-  //   .catch(err => console.log(err));
 });
 
 // WORKING WITH POSTMAN

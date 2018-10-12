@@ -28,49 +28,9 @@ class App extends React.Component {
       .get(`/api/v1/artists/${randNum}/popular-songs`)
       .then(response => {
         let data = response.data;
-
         this.setState({
           popularSongs: data
         });
-
-        // var images = [];
-        // for (var i = 0; i < data.length; i++) {
-        //   if (!images.includes(data[i].img)) {
-        //     images.push(data[i].img);
-        //   }
-        // }
-
-        // this.setState({ artistObj: data });
-
-        // this.setState({ albumCovers: images });
-
-        // let albumOne = data.albums[0].songs.map(e => [0, e]);
-        // console.log('albumOne', albumOne);
-        // let albumTwo = data.albums[1].songs.map(e => [1, e]);
-        // let albumThree = data.albums[2].songs.map(e => [2, e]);
-        // let allSongs = albumOne.concat(albumTwo, albumThree);
-
-        // allSongs.sort((a, b) => {
-        // data.sort((a, b) => {
-        //   if (a[1].popularity > b[1].popularity) {
-        //     return -1;
-        //   }
-        //   if (a[1].popularity < b[1].popularity) {
-        //     return 1;
-        //   }
-        //   return 0;
-        // });
-
-        // allSongs = data.slice(0, 10);
-
-        // this.setState({
-        //   artistID: randNum,
-        //   popularSongs: data
-        //   albumCovers: images
-        //   artistObj: data
-        // });
-
-        // this.setState({ popularSongs: allSongs });
       })
 
       .catch(error => {
@@ -79,38 +39,6 @@ class App extends React.Component {
   }
 
   createListOfSongs() {
-    // let albumArr = [
-    //   1,
-    //   2,
-    //   3,
-    //   4,
-    //   5,
-    //   6,
-    //   7,
-    //   8,
-    //   9,
-    //   10,
-    //   1,
-    //   2,
-    //   3,
-    //   4,
-    //   5,
-    //   6,
-    //   7,
-    //   8,
-    //   9,
-    //   10,
-    //   1,
-    //   2,
-    //   3,
-    //   4,
-    //   5,
-    //   6,
-    //   7,
-    //   8,
-    //   9,
-    //   10
-    // ];
     return this.state.popularSongs.map((e, i) => (
       <Song
         key={e.sng_id}
